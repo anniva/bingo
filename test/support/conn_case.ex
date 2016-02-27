@@ -21,9 +21,9 @@ defmodule Bingo.ConnCase do
       use Phoenix.ConnTest
 
       alias Bingo.Repo
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query, only: [from: 1, from: 2]
+      #import Ecto
+      #import Ecto.Changeset
+      #import Ecto.Query, only: [from: 1, from: 2]
 
       import Bingo.Router.Helpers
 
@@ -32,11 +32,11 @@ defmodule Bingo.ConnCase do
     end
   end
 
-  setup tags do
-    unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Bingo.Repo, [])
-    end
+  #setup tags do
+  #  unless tags[:async] do
+  #    Ecto.Adapters.SQL.restart_test_transaction(Bingo.Repo, [])
+  #  end
 
-    {:ok, conn: Phoenix.ConnTest.conn()}
-  end
+  #  {:ok, conn: Phoenix.ConnTest.conn()}
+  #end
 end
