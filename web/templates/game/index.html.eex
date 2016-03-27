@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Numbers Played</th>
 
       <th></th>
     </tr>
@@ -12,11 +13,10 @@
 <%= for game <- @games do %>
     <tr>
       <td><%= game.name %></td>
+      <td><%= length game.played_numbers %></td>
 
       <td class="text-right">
         <%= link "Show", to: game_path(@conn, :show, game), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: game_path(@conn, :edit, game), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: game_path(@conn, :delete, game), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>

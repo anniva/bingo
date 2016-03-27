@@ -1,4 +1,4 @@
-<h2><%= @game.name %></h2>
+<h2>Caller for <%= @game.name %></h2>
 
 <ul>
 
@@ -6,6 +6,10 @@
     <strong>Name:</strong>
     <%= inspect @game %>
   </li>
+
+  <button id='new-number'>
+    CALL NUMBER
+  </button>
 
 </ul>
 

@@ -2,13 +2,19 @@ defmodule Bingo.GameTest do
   use ExUnit.Case
 
   test "a new game has no numbers" do
-    game = Bingo.Game.new("The name")
+    game = Bingo.Game.new("The name", "the-id")
+
+    assert game.played_numbers == []
+  end
+
+  test "a new game has no numbers" do
+    game = Bingo.Game.new("The name", "the-id")
 
     assert game.played_numbers == []
   end
 
   test "a game stores numbers it draws" do
-    game = Bingo.Game.new("The name")
+    game = Bingo.Game.new("The name", "the-id")
 
     {number, game} = Bingo.Game.draw(game)
 
@@ -20,7 +26,7 @@ defmodule Bingo.GameTest do
   end
 
   test "it can be given a specific number to draw" do
-    game = Bingo.Game.new("The name")
+    game = Bingo.Game.new("The name", "the-id")
 
     {13, game} = Bingo.Game.draw(game, 13)
 
@@ -28,7 +34,7 @@ defmodule Bingo.GameTest do
   end
 
   test "cannot draw numbers above the bingo range" do
-    game = Bingo.Game.new("The name")
+    game = Bingo.Game.new("The name", "the-id")
 
     {13, game} = Bingo.Game.draw(game, 13)
 
@@ -46,7 +52,7 @@ defmodule Bingo.GameTest do
   end
 
   test "a game has a name" do
-    game = Bingo.Game.new("The name")
+    game = Bingo.Game.new("The name", "the-id")
   
     assert game.name == "The name"
   end

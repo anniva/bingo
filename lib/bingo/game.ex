@@ -1,10 +1,10 @@
 defmodule Bingo.Game do
-  defstruct name: "", played_numbers: []
+  defstruct id: '', name: '', played_numbers: []
 
   @available_numbers 1..75
 
-  def new(name) do
-    %Bingo.Game{ name: name }
+  def new(name, id) do
+    %Bingo.Game{ name: name, id: id }
   end
 
   def draw(%Bingo.Game{ played_numbers: numbers} = game) when length(numbers) == 75 do

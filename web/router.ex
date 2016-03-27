@@ -17,6 +17,8 @@ defmodule Bingo.Router do
     pipe_through :browser # Use the default browser stack
 
     resources "/", GameController
+
+    get ":id/caller", GameController, :caller
   end
 
   # Other scopes may use custom stacks.

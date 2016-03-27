@@ -27,20 +27,25 @@ defmodule Bingo.Lobby do
   end
 
   def handle_call({:create_game, name}, _sender, table) do
-    game = Bingo.Game.new(name)
-    :ets.insert(table, {name, game})
+    random_id = 
+      :crypto.hash(:sha256, [1, "#{name}-#{:os.system_time}" , "!"]) 
+        |> Base.encode16 
+        |> String.slice(0..10)
+
+    game = Bingo.Game.new(name, random_id)
+    :ets.insert(table, {random_id, game})
 
     {:reply, {:ok, game}, table}
   end
 
-  def handle_call({:fetch, name}, _sender, table) do
-    [{_name, game}] = :ets.lookup(table, name)
-
-    {:reply, {:ok, game}, table}
+  def handle_call({:fetch, random_id}, _sender, table) do
+    case :ets.lookup(table, random_id) do
+      [{_random_id, game}] -> {:reply, {:ok, game}, table}
+    end
   end
 
   def handle_call({:update, game}, _sender, table) do
-    :ets.insert(table, {game.name, game})
+    :ets.insert(table, {game.id, game})
 
     {:reply, {:ok, game}, table}
   end

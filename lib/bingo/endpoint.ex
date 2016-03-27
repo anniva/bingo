@@ -1,7 +1,7 @@
 defmodule Bingo.Endpoint do
   use Phoenix.Endpoint, otp_app: :bingo
 
-  socket "/socket", Bingo.UserSocket
+  socket "/games", Bingo.GameSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #

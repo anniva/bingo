@@ -2,25 +2,26 @@ defmodule Bingo.LobbyTest do
   use ExUnit.Case
 
   test "the lobby can create a new game" do
-    name = "Name of the game"
     {:ok, _} = Bingo.Lobby.start_link
 
-    {:ok, %Bingo.Game{}} = Bingo.Lobby.create_game(name)
+    name = "Name of the game"
+    {:ok, %Bingo.Game{} = game} = Bingo.Lobby.create_game(name)
 
-    {:ok, %Bingo.Game{} = game} = Bingo.Lobby.fetch(name)
+    {:ok, %Bingo.Game{} = game} = Bingo.Lobby.fetch(game.id)
 
     assert game.name == name
+    assert game.id != nil
   end
 
   test "the lobby can be used to update the state of a game" do
-    name = "Name of the game"
     {:ok, _} = Bingo.Lobby.start_link
 
+    name = "Name of the game"
     {:ok, %Bingo.Game{} = game} = Bingo.Lobby.create_game(name)
     {new_number, game} = Bingo.Game.draw(game)
 
     {:ok, %Bingo.Game{}} = Bingo.Lobby.update(game)
-    {:ok, game} = Bingo.Lobby.fetch(name)
+    {:ok, game} = Bingo.Lobby.fetch(game.id)
 
     assert game.name == name
     assert game.played_numbers == [new_number]

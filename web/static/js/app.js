@@ -19,3 +19,26 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+//
+import {Socket} from "phoenix"
+
+let socket = new Socket("/games", {params: {}})
+socket.connect()
+let gameId = window.location.pathname.split("/")[1]
+
+let button = document.getElementById('new-number')
+let channel = socket.channel("games:" + gameId, {})
+
+channel.on("new_number", payload => {
+  console.log("Update", payload)
+})
+
+if(button) {
+  button.addEventListener('click', e => {
+    channel.push('new_number', {})
+  })
+}
+
+channel.join()
+  .receive("ok", resp => { console.log("Joined successfully", resp) })
+  .receive("error", resp => { console.log("Unable to join", resp) })

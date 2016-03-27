@@ -20,15 +20,20 @@ defmodule Bingo.GameController do
       {:ok, game} ->
         conn
         |> put_flash(:info, "Game created successfully.")
-        |> redirect(to: game_path(conn, :index))
+        |> redirect(to: game_path(conn, :show, game.id))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    game = Repo.get!(Game, id)
+    {:ok, game} = Lobby.fetch(id)
     render(conn, "show.html", game: game)
+  end
+
+  def caller(conn, %{"id" => id}) do
+    {:ok, game} = Lobby.fetch(id)
+    render(conn, "caller.html", game: game)
   end
 
   def edit(conn, %{"id" => id}) do
