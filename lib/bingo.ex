@@ -12,7 +12,7 @@ defmodule Bingo do
       # Start the Ecto repository
       # supervisor(Bingo.Repo, []),
       # Here you could define other workers and supervisors as children
-      # worker(Bingo.Worker, [arg1, arg2, arg3]),
+      worker(Bingo.Lobby, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

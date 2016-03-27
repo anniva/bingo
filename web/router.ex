@@ -16,7 +16,7 @@ defmodule Bingo.Router do
   scope "/", Bingo do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    resources "/", GameController
   end
 
   # Other scopes may use custom stacks.
